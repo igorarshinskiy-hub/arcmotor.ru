@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARC — Электромотоциклы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #080808;
+    --dark: #0e0e0e;
+    --panel: #131313;
+    --border: rgba(255,255,255,0.07);
+    --arc: #00e5ff;
+    --arc-dim: rgba(0,229,255,0.15);
+    --arc-glow: rgba(0,229,255,0.4);
+    --white: #f0f0f0;
+    --muted: rgba(240,240,240,0.45);
+    --mono: 'Share Tech Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--arc);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1px solid var(--arc);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+    transition: transform 0.15s ease-out, width 0.2s, height 0.2s, opacity 0.2s;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 60px;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+    transition: background 0.3s;
+  }
+  nav.scrolled { background: rgba(8,8,8,0.97); border-bottom: 1px solid var(--border); }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 6px;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--arc); }
+
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--arc); }
+
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--arc);
+    color: var(--arc);
+    padding: 10px 28px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-cta:hover { background: var(--arc); color: var(--black); }
+
+  /* SECTIONS GENERAL */
+  section { position: relative; }
+
+  /* SECTION LABEL */
+  .sec-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--arc);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0.7;
+  }
+
+  /* HERO */
+  #hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 60px 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 50%, rgba(0,229,255,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 30% 80%, rgba(0,100,150,0.08) 0%, transparent 50%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+  }
+
+  .hero-scan {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--arc), transparent);
+    animation: scan 4s linear infinite;
+    opacity: 0.3;
+  }
+  @keyframes scan { from { top: 0; } to { top: 100%; } }
+
+  .hero-moto-placeholder {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 55%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed rgba(0,229,255,0.2);
+    border-radius: 4px;
+  }
+  .hero-moto-placeholder span {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(0,229,255,0.4);
+    letter-spacing: 2px;
+  }
+  .hero-moto-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0.9) contrast(1.1);
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 640px; }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--arc);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--arc);
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 10vw, 140px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+  }
+  h1 em {
+    color: var(--arc);
+    font-style: normal;
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 400px;
+    margin-bottom: 48px;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-btns { display: flex; gap: 16px; align-items: center; }
+
+  .btn-primary {
+    background: var(--arc);
+    color: var(--black);
+    border: none;
+    padding: 16px 40px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: none;
+    font-family: 'Inter', sans-serif;
+    transition: opacity 0.2s, transform 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--border);
+    padding: 16px 40px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: none;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s, color 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--arc); color: var(--arc); }
+
+  .hero-stats {
+    position: absolute;
+    right: 60px;
+    bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    z-index: 2;
+  }
+  .hero-stat { text-align: right; }
+  .hero-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--white);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .hero-stat-num span { color: var(--arc); }
+  .hero-stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* SCROLL TRACK — sticker lanes */
+  .track-section {
+    position: relative;
+    padding: 120px 60px;
+  }
+
+  .sticker-track {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--border), var(--arc-dim), var(--border), transparent);
+    overflow: visible;
+  }
+  .sticker-track.top { top: 0; }
+  .sticker-track.bottom { bottom: 0; }
+
+  .sticker {
+    position: absolute;
+    top: -12px;
+    will-change: transform;
+    opacity: 0.7;
+  }
+  .sticker svg { display: block; }
+
+  /* ABOUT */
+  #about { background: var(--dark); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 6vw, 80px);
+    line-height: 0.95;
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+  }
+  h2 span { color: var(--arc); }
+
+  .body-text {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 24px;
+  }
+
+  .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 48px;
+  }
+  .spec-item {
+    padding: 24px;
+    background: var(--panel);
+  }
+  .spec-item-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    color: var(--white);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .spec-item-num em { color: var(--arc); font-style: normal; font-size: 22px; }
+  .spec-item-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .about-visual {
+    position: relative;
+    height: 480px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .about-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(0,229,255,0.05), transparent 70%);
+  }
+  .about-visual-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(0,229,255,0.4);
+    letter-spacing: 2px;
+    z-index: 1;
+  }
+  .about-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* MODELS */
+  #models { background: var(--black); }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 64px;
+  }
+
+  .models-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .model-card {
+    background: var(--panel);
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    group: true;
+  }
+  .model-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--arc-dim), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 1;
+  }
+  .model-card:hover::before { opacity: 1; }
+
+  .model-img {
+    width: 100%;
+    aspect-ratio: 16/10;
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .model-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+  }
+  .model-card:hover .model-img img { transform: scale(1.04); }
+  .model-img-placeholder {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(0,229,255,0.3);
+    letter-spacing: 2px;
+  }
+
+  .model-info {
+    padding: 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .model-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--arc);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .model-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .model-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+    min-height: 60px;
+  }
+  .model-specs {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .model-spec { flex: 1; min-width: 60px; }
+  .model-spec-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--white);
+    line-height: 1;
+  }
+  .model-spec-val em { color: var(--arc); font-style: normal; font-size: 12px; }
+  .model-spec-key {
+    font-family: var(--mono);
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .model-price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .model-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .model-price-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .btn-model {
+    background: transparent;
+    border: 1px solid var(--arc);
+    color: var(--arc);
+    padding: 10px 18px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-model:hover { background: var(--arc); color: var(--black); }
+
+  /* TECH */
+  #tech {
+    background: var(--dark);
+  }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    margin-top: 64px;
+  }
+  .tech-item {
+    background: var(--panel);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tech-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--arc);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+    transform-origin: left;
+  }
+  .tech-item:hover::after { transform: scaleX(1); }
+
+  .tech-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 24px;
+    color: var(--arc);
+  }
+  .tech-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(0,229,255,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .tech-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .tech-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* CTA */
+  #cta {
+    background: var(--black);
+    text-align: center;
+    padding: 160px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  #cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,229,255,0.07), transparent);
+  }
+
+  .cta-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 10vw, 160px);
+    line-height: 0.9;
+    letter-spacing: 4px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 48px;
+  }
+  .cta-big span { color: var(--arc); }
+
+  .cta-sub {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 420px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-btns {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 4px;
+    color: var(--muted);
+  }
+  .footer-logo span { color: var(--arc); }
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 2px;
+  }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--arc); }
+
+  /* REVEAL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* HORIZONTAL LINE ACCENT */
+  .h-line {
+    height: 1px;
+    background: linear-gradient(90deg, var(--arc), transparent);
+    margin-bottom: 48px;
+    width: 120px;
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+    background: var(--panel);
+  }
+  .marquee-inner {
+    display: flex;
+    gap: 0;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 6px;
+    color: var(--muted);
+    padding: 0 60px;
+    white-space: nowrap;
+  }
+  .marquee-item span { color: var(--arc); }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* CHARGE BAR */
+  .charge-bar-wrap {
+    margin: 48px 0;
+  }
+  .charge-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .charge-bar {
+    height: 4px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .charge-fill {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    background: var(--arc);
+    width: 0;
+    transition: width 1.5s ease;
+  }
+
+  @media (max-width: 1280px) {
+    .models-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    #hero { padding: 0 24px 60px; }
+    .hero-moto-placeholder { display: none; }
+    .hero-stats { display: none; }
+    .track-section { padding: 80px 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .models-grid { grid-template-columns: 1fr; }
+    .tech-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 24px; text-align: center; }
+    #cta { padding: 80px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">AR<span>C</span></a>
+  <ul class="nav-links">
+    <li><a href="#models">Модели</a></li>
+    <li><a href="#tech">Технологии</a></li>
+    <li><a href="#about">О бренде</a></li>
+    <li><a href="#cta">Контакты</a></li>
+  </ul>
+  <button class="nav-cta">Тест-драйв</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-scan"></div>
+
+  <div class="hero-moto-placeholder">
+    <img src="images/moto-s1.png" alt="ARC электромотоцикл" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+    <span style="display:none">[ ФОТО МОТОЦИКЛА ]</span>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Электрическая дуга</div>
+    <h1>ЧИСТАЯ<em>МОЩЬ</em></h1>
+    <p class="hero-sub">Электромотоциклы ARC напрямую с завода в Китае. Доставка до Москвы включена в стоимость. Категория B — без прав категории A.</p>
+    <div class="hero-btns">
+      <a href="#models" class="btn-primary">Смотреть модели</a>
+      <a href="#tech" class="btn-ghost">Технологии</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">150<span> км/ч</span></div>
+      <div class="hero-stat-label">макс. скорость</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">250<span> км</span></div>
+      <div class="hero-stat-label">запас хода</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">10<span> кВт</span></div>
+      <div class="hero-stat-label">мощность</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span class="marquee-item">ARC MOTO</span>
+    <span class="marquee-item"><span>●</span></span>
+    <span class="marquee-item">ПРЯМО С ЗАВОДА</span>
+    <span class="marquee-item"><span>●</span></span>
+    <span class="marquee-item">ДОСТАВКА В ЦЕНЕ</span>
+    <span class="marquee-item"><span>●</span></span>
+    <span class="marquee-item">КАТЕГОРИЯ B</span>
+    <span class="marquee-item"><span>●</span></span>
+    <span class="marquee-item">ARC MOTO</span>
+    <span class="marquee-item"><span>●</span></span>
+    <span class="marquee-item">ПРЯМО С ЗАВОДА</span>
+    <span class="marquee-item"><span>●</span></span>
+    <span class="marquee-item">ДОСТАВКА В ЦЕНЕ</span>
+    <span class="marquee-item"><span>●</span></span>
+    <span class="marquee-item">КАТЕГОРИЯ B</span>
+    <span class="marquee-item"><span>●</span></span>
+    <span class="marquee-item">ARC MOTO</span>
+    <span class="marquee-item"><span>●</span></span>
+    <span class="marquee-item">ПРЯМО С ЗАВОДА</span>
+    <span class="marquee-item"><span>●</span></span>
+    <span class="marquee-item">ДОСТАВКА В ЦЕНЕ</span>
+    <span class="marquee-item"><span>●</span></span>
+    <span class="marquee-item">КАТЕГОРИЯ B</span>
+    <span class="marquee-item"><span>●</span></span>
+  </div>
+</div>
+
+<!-- MODELS -->
+<section id="models" class="track-section">
+  <div class="sticker-track top" id="track-top-models"></div>
+
+  <div class="section-header">
+    <div>
+      <div class="sec-label reveal">// линейка моделей</div>
+      <h2 class="reveal reveal-delay-1">ВЫБЕРИ<br><span>СВОЮ ДУГУ</span></h2>
+    </div>
+    <a href="#" class="btn-ghost reveal" style="margin-bottom: 12px">Все модели →</a>
+  </div>
+
+  <div class="models-grid">
+
+    <!-- MODEL 1: Sport Ninja Pro -->
+    <div class="model-card reveal">
+      <div class="model-img">
+        <img src="images/moto-s1.png" alt="ARC Ninja 500 Pro" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="model-img-placeholder" style="display:none">[ ARC NINJA 500 PRO ]</div>
+      </div>
+      <div class="model-info">
+        <div class="model-tag">Спорт</div>
+        <div class="model-name">ARC NINJA 500 PRO</div>
+        <p class="model-desc">Спортивный обтекатель, агрессивная посадка. Красно-чёрный окрас.</p>
+        <div class="model-specs">
+          <div class="model-spec">
+            <div class="model-spec-val">150<em>км/ч</em></div>
+            <div class="model-spec-key">Макс.</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">190<em>км</em></div>
+            <div class="model-spec-key">Ход</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">10<em>кВт</em></div>
+            <div class="model-spec-key">Мощн.</div>
+          </div>
+        </div>
+        <div class="model-price-row">
+          <div>
+            <div class="model-price">720 790 ₽</div>
+            <div class="model-price-label">От</div>
+          </div>
+          <a href="#cta" class="btn-model">Заказать</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODEL 2: Sport Ninja 500 -->
+    <div class="model-card reveal reveal-delay-1">
+      <div class="model-img">
+        <img src="images/moto-s2.png" alt="ARC Ninja 500" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="model-img-placeholder" style="display:none">[ ARC NINJA 500 ]</div>
+      </div>
+      <div class="model-info">
+        <div class="model-tag">Спорт</div>
+        <div class="model-name">ARC NINJA 500</div>
+        <p class="model-desc">Базовая спорт-версия. Глубокий красный, спортивная геометрия рамы.</p>
+        <div class="model-specs">
+          <div class="model-spec">
+            <div class="model-spec-val">130<em>км/ч</em></div>
+            <div class="model-spec-key">Макс.</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">155<em>км</em></div>
+            <div class="model-spec-key">Ход</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">8<em>кВт</em></div>
+            <div class="model-spec-key">Мощн.</div>
+          </div>
+        </div>
+        <div class="model-price-row">
+          <div>
+            <div class="model-price">526 790 ₽</div>
+            <div class="model-price-label">От</div>
+          </div>
+          <a href="#cta" class="btn-model">Заказать</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODEL 3: Panigale S -->
+    <div class="model-card reveal reveal-delay-2">
+      <div class="model-img">
+        <img src="images/moto-r3.png" alt="ARC Panigale S" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="model-img-placeholder" style="display:none">[ ARC PANIGALE S ]</div>
+      </div>
+      <div class="model-info">
+        <div class="model-tag">Электроспортбайк</div>
+        <div class="model-name">ARC PANIGALE S</div>
+        <p class="model-desc">Матовый чёрный, спортбайк-форма. Хищный силуэт без лишнего хрома.</p>
+        <div class="model-specs">
+          <div class="model-spec">
+            <div class="model-spec-val">130<em>км/ч</em></div>
+            <div class="model-spec-key">Макс.</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">140<em>км</em></div>
+            <div class="model-spec-key">Ход</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">8<em>кВт</em></div>
+            <div class="model-spec-key">Мощн.</div>
+          </div>
+        </div>
+        <div class="model-price-row">
+          <div>
+            <div class="model-price">619 800 ₽</div>
+            <div class="model-price-label">От</div>
+          </div>
+          <a href="#cta" class="btn-model">Заказать</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODEL 4: TS Bravo -->
+    <div class="model-card reveal reveal-delay-3">
+      <div class="model-img">
+        <img src="images/moto-n4.png" alt="ARC TS Bravo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="model-img-placeholder" style="display:none">[ ARC TS BRAVO ]</div>
+      </div>
+      <div class="model-info">
+        <div class="model-tag">Нейкед</div>
+        <div class="model-name">ARC TS BRAVO</div>
+        <p class="model-desc">Городской нейкед. Красные акценты, прямая посадка, флагман линейки.</p>
+        <div class="model-specs">
+          <div class="model-spec">
+            <div class="model-spec-val">140<em>км/ч</em></div>
+            <div class="model-spec-key">Макс.</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">250<em>км</em></div>
+            <div class="model-spec-key">Ход</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">10<em>кВт</em></div>
+            <div class="model-spec-key">Мощн.</div>
+          </div>
+        </div>
+        <div class="model-price-row">
+          <div>
+            <div class="model-price">1 254 000 ₽</div>
+            <div class="model-price-label">От</div>
+          </div>
+          <a href="#cta" class="btn-model">Заказать</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODEL 5: TS Bravo 2026 -->
+    <div class="model-card reveal">
+      <div class="model-img">
+        <img src="images/moto-n5.png" alt="ARC TS Bravo 2026" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="model-img-placeholder" style="display:none">[ ARC TS BRAVO 2026 ]</div>
+      </div>
+      <div class="model-info">
+        <div class="model-tag">Нейкед · 2026</div>
+        <div class="model-name">ARC TS BRAVO 2026</div>
+        <p class="model-desc">Обновлённая версия. Полностью чёрная отделка, новые контроллер и панель.</p>
+        <div class="model-specs">
+          <div class="model-spec">
+            <div class="model-spec-val">140<em>км/ч</em></div>
+            <div class="model-spec-key">Макс.</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">250<em>км</em></div>
+            <div class="model-spec-key">Ход</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">10<em>кВт</em></div>
+            <div class="model-spec-key">Мощн.</div>
+          </div>
+        </div>
+        <div class="model-price-row">
+          <div>
+            <div class="model-price">1 264 900 ₽</div>
+            <div class="model-price-label">От</div>
+          </div>
+          <a href="#cta" class="btn-model">Заказать</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODEL 6: RS1 -->
+    <div class="model-card reveal reveal-delay-1">
+      <div class="model-img">
+        <img src="images/moto-n6.png" alt="ARC RS1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="model-img-placeholder" style="display:none">[ ARC RS1 ]</div>
+      </div>
+      <div class="model-info">
+        <div class="model-tag">Стритфайтер</div>
+        <div class="model-name">ARC RS1</div>
+        <p class="model-desc">Компактный стритфайтер. Скульптурная форма бака, агрессивная оптика.</p>
+        <div class="model-specs">
+          <div class="model-spec">
+            <div class="model-spec-val">120<em>км/ч</em></div>
+            <div class="model-spec-key">Макс.</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">200<em>км</em></div>
+            <div class="model-spec-key">Ход</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">8<em>кВт</em></div>
+            <div class="model-spec-key">Мощн.</div>
+          </div>
+        </div>
+        <div class="model-price-row">
+          <div>
+            <div class="model-price">889 800 ₽</div>
+            <div class="model-price-label">От</div>
+          </div>
+          <a href="#cta" class="btn-model">Заказать</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODEL 7: Cruiser 300EV -->
+    <div class="model-card reveal reveal-delay-2">
+      <div class="model-img">
+        <img src="images/moto-c7.png" alt="ARC Cruiser 300EV" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="model-img-placeholder" style="display:none">[ ARC CRUISER 300EV ]</div>
+      </div>
+      <div class="model-info">
+        <div class="model-tag">Круизер · Ликвидация</div>
+        <div class="model-name">ARC CRUISER 300EV</div>
+        <p class="model-desc">Классический круизер. Низкая посадка, длинная база, ретро-силуэт.</p>
+        <div class="model-specs">
+          <div class="model-spec">
+            <div class="model-spec-val">120<em>км/ч</em></div>
+            <div class="model-spec-key">Макс.</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">130<em>км</em></div>
+            <div class="model-spec-key">Ход</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">8<em>кВт</em></div>
+            <div class="model-spec-key">Мощн.</div>
+          </div>
+        </div>
+        <div class="model-price-row">
+          <div>
+            <div class="model-price">790 000 ₽</div>
+            <div class="model-price-label">От</div>
+          </div>
+          <a href="#cta" class="btn-model">Заказать</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODEL 8: STASH -->
+    <div class="model-card reveal reveal-delay-3">
+      <div class="model-img">
+        <img src="images/moto-x8.png" alt="ARC STASH" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="model-img-placeholder" style="display:none">[ ARC STASH ]</div>
+      </div>
+      <div class="model-info">
+        <div class="model-tag">Гибрид</div>
+        <div class="model-name">ARC STASH</div>
+        <p class="model-desc">Голубой акцент, гибридная форма — полуспорт с элементами нейкеда.</p>
+        <div class="model-specs">
+          <div class="model-spec">
+            <div class="model-spec-val">120<em>км/ч</em></div>
+            <div class="model-spec-key">Макс.</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">150<em>км</em></div>
+            <div class="model-spec-key">Ход</div>
+          </div>
+          <div class="model-spec">
+            <div class="model-spec-val">8<em>кВт</em></div>
+            <div class="model-spec-key">Мощн.</div>
+          </div>
+        </div>
+        <div class="model-price-row">
+          <div>
+            <div class="model-price">742 900 ₽</div>
+            <div class="model-price-label">От</div>
+          </div>
+          <a href="#cta" class="btn-model">Заказать</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="sticker-track bottom" id="track-bottom-models"></div>
+</section>
+
+<!-- TECH -->
+<section id="tech" class="track-section">
+  <div class="sticker-track top" id="track-top-tech"></div>
+  <div class="sec-label reveal">// как мы работаем</div>
+  <h2 class="reveal reveal-delay-1">ПРЯМО<br><span>С ЗАВОДА</span></h2>
+  <div class="h-line reveal reveal-delay-2"></div>
+
+  <div class="tech-grid">
+    <div class="tech-item reveal">
+      <div class="tech-num">01</div>
+      <svg class="tech-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M8 30h32M12 30V18l4-4h16l4 4v12"/>
+        <circle cx="16" cy="34" r="4"/>
+        <circle cx="32" cy="34" r="4"/>
+      </svg>
+      <div class="tech-title">Доставка включена</div>
+      <p class="tech-desc">Цена на сайте — финальная. От завода в Китае до Москвы. Растаможка, оформление, страховка груза — наша забота.</p>
+    </div>
+    <div class="tech-item reveal reveal-delay-1">
+      <div class="tech-num">02</div>
+      <svg class="tech-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="10" y="14" width="28" height="20" rx="2"/>
+        <path d="M14 14V8M34 14V8M10 22h28"/>
+      </svg>
+      <div class="tech-title">Прямой контракт</div>
+      <p class="tech-desc">Работаем напрямую с китайскими производителями. Без перекупов, без розничных наценок. Заводская цена + логистика.</p>
+    </div>
+    <div class="tech-item reveal reveal-delay-2">
+      <div class="tech-num">03</div>
+      <svg class="tech-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="14" y="6" width="20" height="36" rx="2"/>
+        <path d="M14 14h20M14 34h20"/>
+        <rect x="18" y="10" width="12" height="2"/>
+      </svg>
+      <div class="tech-title">Категория B</div>
+      <p class="tech-desc">Мощность до 10 кВт — управление с правами категории B. Не нужно сдавать на A, не нужны мотокурсы.</p>
+    </div>
+    <div class="tech-item reveal reveal-delay-3">
+      <div class="tech-num">04</div>
+      <svg class="tech-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="8" y="16" width="28" height="16" rx="2"/>
+        <path d="M36 22h6v4h-6"/>
+        <rect x="14" y="22" width="4" height="4"/>
+      </svg>
+      <div class="tech-title">Литиевый аккумулятор</div>
+      <p class="tech-desc">Съёмный литий-ионный блок. Заряжается от обычной розетки 220V за 6–8 часов. Запас хода до 250 км на одном заряде.</p>
+    </div>
+    <div class="tech-item reveal reveal-delay-1">
+      <div class="tech-num">05</div>
+      <svg class="tech-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="24" cy="24" r="18"/>
+        <path d="M24 12v12l8 4"/>
+      </svg>
+      <div class="tech-title">Срок поставки</div>
+      <p class="tech-desc">30–45 дней с момента заказа. Отслеживание груза на каждом этапе. Часть моделей — со склада в Москве, выдача за день.</p>
+    </div>
+    <div class="tech-item reveal reveal-delay-2">
+      <div class="tech-num">06</div>
+      <svg class="tech-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M24 4l4 14h14l-11 8 4 14-11-8-11 8 4-14-11-8h14z"/>
+      </svg>
+      <div class="tech-title">Гарантия 12 месяцев</div>
+      <p class="tech-desc">Год гарантии на электронику и батарею. Сервисный центр в Москве, поставка запчастей напрямую от производителя.</p>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="charge-bar-wrap reveal" style="margin-top: 80px">
+    <div class="charge-label"><span>Прямая работа с заводом</span><span>100%</span></div>
+    <div class="charge-bar"><div class="charge-fill" data-width="100"></div></div>
+  </div>
+  <div class="charge-bar-wrap reveal">
+    <div class="charge-label"><span>Доставка в стоимости</span><span>100%</span></div>
+    <div class="charge-bar"><div class="charge-fill" data-width="100"></div></div>
+  </div>
+  <div class="charge-bar-wrap reveal">
+    <div class="charge-label"><span>Можно с правами B</span><span>100%</span></div>
+    <div class="charge-bar"><div class="charge-fill" data-width="100"></div></div>
+  </div>
+
+  <div class="sticker-track bottom" id="track-bottom-tech"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="track-section">
+  <div class="sticker-track top" id="track-top-about"></div>
+  <div class="about-grid">
+    <div>
+      <div class="sec-label reveal">// о бренде</div>
+      <h2 class="reveal reveal-delay-1">МЫ<br><span>ARC</span></h2>
+      <p class="body-text reveal reveal-delay-2">ARC — прямой импорт электромотоциклов из Китая. Мы работаем напрямую с заводами-изготовителями, без посредников и розничных наценок. Доставка до Москвы включена в цену.</p>
+      <p class="body-text reveal reveal-delay-3">Название — от электрической дуги. Самый горячий, самый яркий разряд. Именно это мы вкладываем в каждый мотоцикл.</p>
+
+      <div class="spec-grid reveal reveal-delay-4">
+        <div class="spec-item">
+          <div class="spec-item-num">8<em>моделей</em></div>
+          <div class="spec-item-label">В линейке</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-item-num">0<em>₽</em></div>
+          <div class="spec-item-label">Доставка</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-item-num">12<em>мес.</em></div>
+          <div class="spec-item-label">Гарантия</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-item-num">B<em>кат.</em></div>
+          <div class="spec-item-label">Без прав A</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-visual reveal reveal-delay-2">
+      <img src="images/moto-n4.png" alt="ARC TS Bravo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <div class="about-visual-label" style="display:none">[ ARC TS BRAVO ]</div>
+    </div>
+  </div>
+  <div class="sticker-track bottom" id="track-bottom-about"></div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="sec-label" style="margin-bottom: 24px; position: relative; z-index:1">// записаться</div>
+  <div class="cta-big">СЯДЬ<br><span>ЗА РУЛЬ</span></div>
+  <p class="cta-sub">Запишитесь на тест-драйв в Москве или Санкт-Петербурге. Мы привезём мотоцикл к вам.</p>
+  <div class="cta-btns">
+    <a href="mailto:hello@arc-moto.ru" class="btn-primary">Записаться</a>
+    <a href="tel:+78001234567" class="btn-ghost">+7 800 123-45-67</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">AR<span>C</span></div>
+  <div class="footer-links">
+    <a href="#">Модели</a>
+    <a href="#">Технологии</a>
+    <a href="#">Дилеры</a>
+    <a href="#">Контакты</a>
+  </div>
+  <div class="footer-copy">© 2025 ARC MOTO. Все права защищены.</div>
+</footer>
+
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function animCursor() {
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+})();
+document.querySelectorAll('a, button, .model-card').forEach(el => {
+  el.addEventListener('mouseenter', () => { ring.style.width = '56px'; ring.style.height = '56px'; ring.style.opacity = '0.8'; });
+  el.addEventListener('mouseleave', () => { ring.style.width = '32px'; ring.style.height = '32px'; ring.style.opacity = '0.5'; });
+});
+
+// NAV SCROLL
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// REVEAL
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// CHARGE BARS
+const barObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const fill = e.target.querySelector('.charge-fill');
+      if (fill) fill.style.width = fill.dataset.width + '%';
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.charge-bar-wrap').forEach(el => barObserver.observe(el));
+
+// MOTO STICKER SVG
+function makeMotoSVG(size, color) {
+  return `<svg width="${size}" height="${Math.round(size*0.42)}" viewBox="0 0 100 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="18" cy="34" rx="8" ry="8" stroke="${color}" stroke-width="2"/>
+    <ellipse cx="82" cy="34" rx="8" ry="8" stroke="${color}" stroke-width="2"/>
+    <path d="M26 34 L38 34 L44 20 L60 20 L66 34 L74 34" stroke="${color}" stroke-width="2" fill="none"/>
+    <path d="M44 20 L48 10 L60 10 L62 20" stroke="${color}" stroke-width="1.5" fill="none"/>
+    <path d="M60 20 L70 14 L76 18 L72 26" stroke="${color}" stroke-width="1.5" fill="none"/>
+    <circle cx="48" cy="10" r="3" stroke="${color}" stroke-width="1.5"/>
+  </svg>`;
+}
+
+// STICKER TRACKS
+const trackConfigs = [
+  { id: 'track-top-models', dir: 1 },
+  { id: 'track-bottom-models', dir: -1 },
+  { id: 'track-top-tech', dir: -1 },
+  { id: 'track-bottom-tech', dir: 1 },
+  { id: 'track-top-about', dir: 1 },
+  { id: 'track-bottom-about', dir: -1 },
+];
+
+const stickers = [];
+
+trackConfigs.forEach(cfg => {
+  const track = document.getElementById(cfg.id);
+  if (!track) return;
+  const trackWidth = track.parentElement.offsetWidth || window.innerWidth;
+  const count = Math.ceil(trackWidth / 160) + 2;
+  const color = cfg.dir > 0 ? 'rgba(0,229,255,0.5)' : 'rgba(0,229,255,0.3)';
+
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'sticker';
+    el.innerHTML = makeMotoSVG(80, color);
+    el.style.left = (i * 160 - 40) + 'px';
+    track.appendChild(el);
+    stickers.push({
+      el,
+      track,
+      baseX: i * 160 - 40,
+      dir: cfg.dir,
+      trackWidth: trackWidth,
+      spacing: 160
+    });
+  }
+});
+
+// SCROLL-DRIVEN STICKER MOVEMENT
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const delta = scrollY - lastScroll;
+  lastScroll = scrollY;
+
+  stickers.forEach(s => {
+    s.baseX += delta * s.dir * 0.4;
+    const totalWidth = s.count || (s.spacing * Math.ceil((s.trackWidth / s.spacing) + 2));
+    // wrap around
+    if (s.baseX > s.trackWidth + 20) s.baseX -= totalWidth + 200;
+    if (s.baseX < -120) s.baseX += totalWidth + 200;
+    s.el.style.left = s.baseX + 'px';
+  });
+}, { passive: true });
+
+// HERO ENTRANCE
+document.querySelector('.hero-content').style.opacity = '0';
+document.querySelector('.hero-content').style.transform = 'translateY(30px)';
+setTimeout(() => {
+  document.querySelector('.hero-content').style.transition = 'opacity 1s ease, transform 1s ease';
+  document.querySelector('.hero-content').style.opacity = '1';
+  document.querySelector('.hero-content').style.transform = 'translateY(0)';
+}, 300);
+</script>
+</body>
+</html>
