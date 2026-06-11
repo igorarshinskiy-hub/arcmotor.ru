@@ -431,7 +431,7 @@
   .model-img {
     width: 100%;
     aspect-ratio: 16/10;
-    background: var(--dark);
+    background: #0a0a0a;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -439,9 +439,11 @@
     position: relative;
   }
   .model-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 92%;
+    max-height: 92%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     transition: transform 0.6s;
   }
   .model-card:hover .model-img img { transform: scale(1.04); }
