@@ -757,6 +757,309 @@
     transition: width 1.5s ease;
   }
 
+  /* MODAL */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .modal-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .modal {
+    position: fixed;
+    inset: 0;
+    z-index: 201;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .modal.open {
+    opacity: 1;
+    pointer-events: auto;
+    overflow-y: auto;
+  }
+  .modal-content {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    width: 100%;
+    max-width: 1200px;
+    max-height: 92vh;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    position: relative;
+    overflow: hidden;
+    transform: translateY(20px);
+    transition: transform 0.4s;
+  }
+  .modal.open .modal-content { transform: translateY(0); }
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 40px; height: 40px;
+    background: rgba(0,0,0,0.6);
+    border: 1px solid var(--border);
+    color: var(--white);
+    cursor: none;
+    z-index: 5;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+  }
+  .modal-close:hover { background: var(--arc); color: var(--black); border-color: var(--arc); }
+
+  .gallery {
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 480px;
+  }
+  .gallery-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 32px;
+    min-height: 380px;
+  }
+  .gallery-main img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: rgba(0,0,0,0.6);
+    border: 1px solid var(--border);
+    color: var(--white);
+    cursor: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+    z-index: 2;
+  }
+  .gallery-nav:hover { background: var(--arc); color: var(--black); border-color: var(--arc); }
+  .gallery-nav.prev { left: 16px; }
+  .gallery-nav.next { right: 16px; }
+  .gallery-thumbs {
+    display: flex;
+    gap: 6px;
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.4);
+    overflow-x: auto;
+    border-top: 1px solid var(--border);
+  }
+  .gallery-thumb {
+    width: 64px;
+    height: 48px;
+    flex-shrink: 0;
+    background: #111;
+    border: 1px solid var(--border);
+    cursor: none;
+    overflow: hidden;
+    opacity: 0.5;
+    transition: opacity 0.2s, border-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gallery-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .gallery-thumb:hover { opacity: 0.8; }
+  .gallery-thumb.active {
+    opacity: 1;
+    border-color: var(--arc);
+  }
+  .gallery-counter {
+    position: absolute;
+    top: 16px; left: 16px;
+    background: rgba(0,0,0,0.6);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--arc);
+    letter-spacing: 2px;
+    z-index: 2;
+  }
+
+  .modal-info {
+    padding: 40px;
+    overflow-y: auto;
+    max-height: 92vh;
+  }
+  .modal-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--arc);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .modal-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .modal-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+  .modal-section-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--arc);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-base-specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .modal-base-spec {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .modal-base-spec strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+  .config-block { margin-bottom: 24px; }
+  .config-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .config-option {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #0d0d0d;
+    border: 1px solid var(--border);
+    cursor: none;
+    transition: border-color 0.2s, background 0.2s;
+    font-size: 12px;
+  }
+  .config-option:hover { border-color: rgba(0,229,255,0.3); }
+  .config-option.selected {
+    border-color: var(--arc);
+    background: rgba(0,229,255,0.05);
+  }
+  .config-radio {
+    width: 14px; height: 14px;
+    border: 1px solid var(--muted);
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .config-option.selected .config-radio { border-color: var(--arc); }
+  .config-option.selected .config-radio::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: var(--arc);
+    border-radius: 50%;
+  }
+  .config-label { color: var(--white); }
+  .config-meta { color: var(--muted); font-family: var(--mono); font-size: 10px; }
+  .config-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: var(--arc);
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  .total-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    margin-top: 28px;
+  }
+  .total-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .total-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    letter-spacing: 1px;
+    line-height: 1;
+    color: var(--white);
+  }
+  .total-price span { color: var(--arc); font-size: 28px; }
+  .btn-order {
+    background: var(--arc);
+    color: var(--black);
+    border: none;
+    padding: 16px 32px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: none;
+    font-family: 'Inter', sans-serif;
+    transition: opacity 0.2s, transform 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-order:hover { opacity: 0.85; transform: translateY(-2px); }
+
+  @media (max-width: 1000px) {
+    .modal { padding: 0; }
+    .modal-content {
+      grid-template-columns: 1fr;
+      max-height: 100vh;
+      height: 100vh;
+    }
+    .gallery { min-height: 320px; }
+    .gallery-main { min-height: 280px; padding: 20px; }
+    .modal-info { padding: 28px 24px; }
+    .modal-name { font-size: 36px; }
+  }
+
   @media (max-width: 1280px) {
     .models-grid { grid-template-columns: repeat(2, 1fr); }
   }
@@ -1483,6 +1786,47 @@
   <div class="footer-copy">© 2025 ARC MOTO. Все права защищены.</div>
 </footer>
 
+<!-- MODAL -->
+<div class="modal-backdrop" id="modalBackdrop"></div>
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="gallery">
+      <div class="gallery-counter" id="galleryCounter">1 / 1</div>
+      <div class="gallery-main" id="galleryMain"></div>
+      <button class="gallery-nav prev" id="galleryPrev">‹</button>
+      <button class="gallery-nav next" id="galleryNext">›</button>
+      <div class="gallery-thumbs" id="galleryThumbs"></div>
+    </div>
+    <div class="modal-info">
+      <div class="modal-tag" id="modalTag"></div>
+      <div class="modal-name" id="modalName"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+
+      <div class="modal-section-title">Базовые характеристики</div>
+      <div class="modal-base-specs" id="modalBaseSpecs"></div>
+
+      <div class="config-block" id="motorBlock">
+        <div class="modal-section-title">Двигатель</div>
+        <div class="config-options" id="motorOptions"></div>
+      </div>
+
+      <div class="config-block">
+        <div class="modal-section-title">Аккумулятор</div>
+        <div class="config-options" id="batteryOptions"></div>
+      </div>
+
+      <div class="total-row">
+        <div>
+          <div class="total-label">Итого</div>
+          <div class="total-price" id="totalPrice">0 <span>₽</span></div>
+        </div>
+        <a href="#cta" class="btn-order" id="orderBtn">Заказать</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 // CURSOR
 const cursor = document.getElementById('cursor');
@@ -1589,6 +1933,396 @@ window.addEventListener('scroll', () => {
     s.el.style.left = s.baseX + 'px';
   });
 }, { passive: true });
+
+// ===== MODELS DATA =====
+const RATE = 26.1;
+const STD_BATTERIES = [
+  { code: '72V40A',  range: '70 км',  rmb: 3250 },
+  { code: '72V50A',  range: '90 км',  rmb: 4060 },
+  { code: '72V60A',  range: '110 км', rmb: 4880 },
+  { code: '72V80A',  range: '140 км', rmb: 6500 },
+  { code: '72V100A', range: '180 км', rmb: 8100 },
+  { code: '72V120A', range: '210 км', rmb: 9760 },
+];
+
+// Standard motor lists used by most sport/naked models
+function stdMotors(wheelPrices, chainPrices) {
+  return {
+    wheel: [
+      { name: '2000W втулочный', speed: '80 км/ч',  rmb: wheelPrices[0] },
+      { name: '3000W втулочный', speed: '100 км/ч', rmb: wheelPrices[1] },
+      { name: '5000W втулочный', speed: '110 км/ч', rmb: wheelPrices[2] },
+      { name: '8000W втулочный', speed: '130 км/ч', rmb: wheelPrices[3] },
+      { name: '15000W втулочный',speed: '160 км/ч', rmb: wheelPrices[4] },
+    ],
+    chain: [
+      { name: '3000W цепной',  speed: '120 км/ч', rmb: chainPrices[0] },
+      { name: '5000W цепной',  speed: '130 км/ч', rmb: chainPrices[1] },
+      { name: '8000W цепной',  speed: '140 км/ч', rmb: chainPrices[2] },
+      { name: '10000W цепной', speed: '160 км/ч', rmb: chainPrices[3] },
+    ],
+  };
+}
+
+const MODELS = {
+  dk: {
+    name: 'ARC DK', tag: 'Спортбайк',
+    desc: 'Красный спортивный обтекатель. Классическая агрессивная посадка, дисковые тормоза, перевёрнутые амортизаторы.',
+    base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'TFT', 'Размер шин': '110/70-17 / 160/60-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: { chain: [ { name: '8000W цепной', speed: '140 км/ч', rmb: 13000 } ] },
+    batteries: STD_BATTERIES,
+    defaultMotor: ['chain', 0], defaultBattery: 3,
+  },
+  rz: {
+    name: 'ARC RZ', tag: 'Спортбайк',
+    desc: 'Гоночная ливрея, спорт-наклейки. Низкая посадка, обтекатель в стиле Ninja, гидравлические амортизаторы.',
+    base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: stdMotors([4200,4500,5100,6800,15600], [7600,8300,10200,14200]),
+    batteries: STD_BATTERIES,
+    defaultMotor: ['chain', 2], defaultBattery: 3,
+  },
+  r3: {
+    name: 'ARC R3', tag: 'Спортбайк',
+    desc: 'Чёрный спортбайк с агрессивной оптикой. Гидравлические амортизаторы, доступен в нескольких цветах.',
+    base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: stdMotors([4300,4600,5200,6900,15980], [7800,8400,10500,14500]),
+    batteries: STD_BATTERIES,
+    defaultMotor: ['chain', 2], defaultBattery: 3,
+  },
+  v6: {
+    name: 'ARC V6', tag: 'Спортбайк',
+    desc: 'Бело-голубой обтекатель. Спортивная геометрия, премиальная отделка, доступен в зелёном и красном.',
+    base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: stdMotors([4300,4600,5200,6900,15980], [7800,8400,10500,14500]),
+    batteries: STD_BATTERIES,
+    defaultMotor: ['chain', 2], defaultBattery: 3,
+  },
+  jl: {
+    name: 'ARC JL', tag: 'Спортбайк',
+    desc: 'Яркий спортбайк, доступен в 5 цветах: оранжевый, жёлтый, синий, красный, белый.',
+    base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: stdMotors([5600,5900,6500,8200,16800], [9000,9500,11400,15500]),
+    batteries: STD_BATTERIES,
+    defaultMotor: ['chain', 2], defaultBattery: 3,
+  },
+  my: {
+    name: 'ARC MY', tag: 'Спортбайк',
+    desc: 'Триколор бело-сине-красный в стиле BMW S1000RR. Спортивный обтекатель, низкая посадка.',
+    base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: stdMotors([5600,5900,6500,8200,16800], [9000,9500,11400,15500]),
+    batteries: STD_BATTERIES,
+    defaultMotor: ['chain', 2], defaultBattery: 3,
+  },
+  hy: {
+    name: 'ARC HY', tag: 'Спортбайк',
+    desc: 'Спортбайк в стиле Kawasaki H2. Доступен в зелёном, красном и сером.',
+    base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: stdMotors([5800,6100,6700,8400,17000], [9200,9700,11600,15700]),
+    batteries: STD_BATTERIES,
+    defaultMotor: ['chain', 2], defaultBattery: 3,
+  },
+  n19: {
+    name: 'ARC N19', tag: 'Нейкед',
+    desc: 'Чёрно-зелёный нейкед. Скульптурный бак, прямая посадка, спортивная подвеска.',
+    base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: stdMotors([7200,7500,8100,9800,17500], [9900,10400,12900,16000]),
+    batteries: STD_BATTERIES,
+    defaultMotor: ['chain', 2], defaultBattery: 3,
+  },
+  xf: {
+    name: 'ARC XF', tag: 'Нейкед',
+    desc: 'Красный нейкед с трубчатой рамой. Минималистичная подвеска, агрессивная оптика.',
+    base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: stdMotors([5500,5800,6300,8200,16200], [9200,9700,11600,14900]),
+    batteries: STD_BATTERIES,
+    defaultMotor: ['chain', 2], defaultBattery: 3,
+  },
+  dmg: {
+    name: 'ARC DMG', tag: 'Кафе-рейсер',
+    desc: 'Кафе-рейсер с золотистыми перевёрнутыми вилками. Полная LCD-приборка, премиальная отделка.',
+    base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: stdMotors([9200,9500,10100,11800,19500], [12200,14200,15700,19200]),
+    batteries: STD_BATTERIES,
+    defaultMotor: ['chain', 2], defaultBattery: 3,
+  },
+  dmg2: {
+    name: 'ARC DMG2', tag: 'Нейкед-флагман',
+    desc: 'Топовый нейкед с массивной рамой и золотистыми вилками. Доступен в красном, тёмно-синем, зелёном и сером.',
+    base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: stdMotors([9000,9300,9900,11600,19000], [12000,14000,15500,19000]),
+    batteries: STD_BATTERIES,
+    defaultMotor: ['chain', 2], defaultBattery: 3,
+  },
+  t8: {
+    name: 'ARC T8', tag: 'Макси-скутер',
+    desc: 'Городской макси-скутер. Объёмный багажник, удобная посадка для пары, гидравлические амортизаторы.',
+    base: { 'Подъём': '35%', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: { wheel: [
+      { name: '3000W колёсный, 13"',    speed: '80 км/ч',  rmb: 7400 },
+      { name: '3000W tile motor, 13"',  speed: '100 км/ч', rmb: 8100 },
+      { name: '3000W mid motor, 14"',   speed: '120 км/ч', rmb: 10050 },
+    ] },
+    batteries: STD_BATTERIES,
+    defaultMotor: ['wheel', 2], defaultBattery: 3,
+  },
+  t9: {
+    name: 'ARC T9', tag: 'Макси-скутер',
+    desc: 'Тёмно-фиолетовый макси-скутер. Спортивный обтекатель, центральный мотор, повышенный комфорт.',
+    base: { 'Подъём': '35%', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: { wheel: [
+      { name: '3000W колёсный, 13"',    speed: '80 км/ч',  rmb: 7550 },
+      { name: '3000W tile motor, 13"',  speed: '100 км/ч', rmb: 8200 },
+      { name: '3000W mid motor, 14"',   speed: '120 км/ч', rmb: 10200 },
+    ] },
+    batteries: STD_BATTERIES,
+    defaultMotor: ['wheel', 2], defaultBattery: 3,
+  },
+  t10: {
+    name: 'ARC T10', tag: 'Макси-скутер',
+    desc: 'Бело-голубой макси. Полностью обтекаемый кузов, премиальная отделка интерьера.',
+    base: { 'Подъём': '35%', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
+    motors: { wheel: [
+      { name: '3000W колёсный, 13"',    speed: '80 км/ч',  rmb: 7900 },
+      { name: '3000W tile motor, 13"',  speed: '100 км/ч', rmb: 8550 },
+      { name: '3000W mid motor, 14"',   speed: '120 км/ч', rmb: 10600 },
+    ] },
+    batteries: STD_BATTERIES,
+    defaultMotor: ['wheel', 2], defaultBattery: 3,
+  },
+};
+
+// ===== MODAL LOGIC =====
+const fmtPrice = (rub) => Math.round(rub).toLocaleString('ru-RU').replace(/,/g, ' ');
+
+let currentModel = null;
+let currentMotorType = null;
+let currentMotorIdx = 0;
+let currentBatteryIdx = 0;
+let currentImages = [];
+let currentImageIdx = 0;
+
+function recalcTotal() {
+  if (!currentModel) return;
+  const motor = currentModel.motors[currentMotorType][currentMotorIdx];
+  const battery = currentModel.batteries[currentBatteryIdx];
+  const totalRmb = motor.rmb + battery.rmb;
+  const totalRub = totalRmb * RATE;
+  document.getElementById('totalPrice').innerHTML = fmtPrice(totalRub) + ' <span>₽</span>';
+}
+
+function renderMotors() {
+  const block = document.getElementById('motorBlock');
+  const container = document.getElementById('motorOptions');
+  container.innerHTML = '';
+  const motors = currentModel.motors;
+  const types = Object.keys(motors);
+  let html = '';
+  types.forEach(type => {
+    motors[type].forEach((m, idx) => {
+      const isSelected = (currentMotorType === type && currentMotorIdx === idx);
+      html += `<div class="config-option${isSelected ? ' selected' : ''}" data-type="${type}" data-idx="${idx}">
+        <div class="config-radio"></div>
+        <div>
+          <div class="config-label">${m.name}</div>
+          <div class="config-meta">${m.speed}</div>
+        </div>
+        <div class="config-price">${fmtPrice(m.rmb * RATE)} ₽</div>
+      </div>`;
+    });
+  });
+  container.innerHTML = html;
+  container.querySelectorAll('.config-option').forEach(el => {
+    el.addEventListener('click', () => {
+      currentMotorType = el.dataset.type;
+      currentMotorIdx = parseInt(el.dataset.idx);
+      container.querySelectorAll('.config-option').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      recalcTotal();
+    });
+  });
+}
+
+function renderBatteries() {
+  const container = document.getElementById('batteryOptions');
+  let html = '';
+  currentModel.batteries.forEach((b, idx) => {
+    const isSelected = (currentBatteryIdx === idx);
+    html += `<div class="config-option${isSelected ? ' selected' : ''}" data-idx="${idx}">
+      <div class="config-radio"></div>
+      <div>
+        <div class="config-label">${b.code}</div>
+        <div class="config-meta">пробег ${b.range}</div>
+      </div>
+      <div class="config-price">${fmtPrice(b.rmb * RATE)} ₽</div>
+    </div>`;
+  });
+  container.innerHTML = html;
+  container.querySelectorAll('.config-option').forEach(el => {
+    el.addEventListener('click', () => {
+      currentBatteryIdx = parseInt(el.dataset.idx);
+      container.querySelectorAll('.config-option').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      recalcTotal();
+    });
+  });
+}
+
+function renderBaseSpecs() {
+  const c = document.getElementById('modalBaseSpecs');
+  let html = '';
+  for (const k in currentModel.base) {
+    html += `<div class="modal-base-spec">${k}: <strong>${currentModel.base[k]}</strong></div>`;
+  }
+  c.innerHTML = html;
+}
+
+// Try to load additional images for a model (moto-{code}-2.jpg, -3.jpg, ...)
+function probeImages(code, mainPath) {
+  return new Promise(resolve => {
+    const found = [mainPath];
+    let i = 2;
+    function tryNext() {
+      // Try jpg, then png
+      const tryExt = (ext, onDone) => {
+        const path = `images/moto-${code}-${i}.${ext}`;
+        const img = new Image();
+        img.onload = () => onDone(path);
+        img.onerror = () => onDone(null);
+        img.src = path;
+      };
+      tryExt('jpg', (jpg) => {
+        if (jpg) {
+          found.push(jpg);
+          i++;
+          if (i > 12) return resolve(found);
+          tryNext();
+        } else {
+          tryExt('png', (png) => {
+            if (png) {
+              found.push(png);
+              i++;
+              if (i > 12) return resolve(found);
+              tryNext();
+            } else {
+              resolve(found);
+            }
+          });
+        }
+      });
+    }
+    tryNext();
+  });
+}
+
+function showImage(idx) {
+  currentImageIdx = idx;
+  const main = document.getElementById('galleryMain');
+  main.innerHTML = `<img src="${currentImages[idx]}" alt="">`;
+  document.getElementById('galleryCounter').textContent = `${idx+1} / ${currentImages.length}`;
+  // Update thumbs
+  document.querySelectorAll('.gallery-thumb').forEach((t, i) => {
+    t.classList.toggle('active', i === idx);
+  });
+  // Show/hide nav
+  document.getElementById('galleryPrev').style.display = currentImages.length > 1 ? 'flex' : 'none';
+  document.getElementById('galleryNext').style.display = currentImages.length > 1 ? 'flex' : 'none';
+}
+
+function renderGallery() {
+  const thumbs = document.getElementById('galleryThumbs');
+  if (currentImages.length <= 1) {
+    thumbs.style.display = 'none';
+  } else {
+    thumbs.style.display = 'flex';
+    thumbs.innerHTML = currentImages.map((src, i) =>
+      `<div class="gallery-thumb${i===0?' active':''}" data-i="${i}"><img src="${src}" alt=""></div>`
+    ).join('');
+    thumbs.querySelectorAll('.gallery-thumb').forEach(t => {
+      t.addEventListener('click', () => showImage(parseInt(t.dataset.i)));
+    });
+  }
+  showImage(0);
+}
+
+async function openModal(code) {
+  const model = MODELS[code];
+  if (!model) return;
+  currentModel = model;
+  currentMotorType = model.defaultMotor[0];
+  currentMotorIdx = model.defaultMotor[1];
+  currentBatteryIdx = model.defaultBattery;
+
+  document.getElementById('modalTag').textContent = model.tag;
+  document.getElementById('modalName').textContent = model.name;
+  document.getElementById('modalDesc').textContent = model.desc;
+  renderBaseSpecs();
+  renderMotors();
+  renderBatteries();
+  recalcTotal();
+
+  // Loading state
+  const main = document.getElementById('galleryMain');
+  main.innerHTML = '<img src="images/moto-' + code + '.jpg" alt="">';
+  currentImages = ['images/moto-' + code + '.jpg'];
+  document.getElementById('galleryCounter').textContent = '1 / 1';
+  document.getElementById('galleryThumbs').style.display = 'none';
+
+  document.getElementById('modalBackdrop').classList.add('open');
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // Probe for more images
+  currentImages = await probeImages(code, 'images/moto-' + code + '.jpg');
+  renderGallery();
+}
+
+function closeModal() {
+  document.getElementById('modalBackdrop').classList.remove('open');
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalBackdrop').addEventListener('click', closeModal);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+  if (!document.getElementById('modal').classList.contains('open')) return;
+  if (e.key === 'ArrowLeft') galleryStep(-1);
+  if (e.key === 'ArrowRight') galleryStep(1);
+});
+
+function galleryStep(dir) {
+  let next = currentImageIdx + dir;
+  if (next < 0) next = currentImages.length - 1;
+  if (next >= currentImages.length) next = 0;
+  showImage(next);
+}
+document.getElementById('galleryPrev').addEventListener('click', () => galleryStep(-1));
+document.getElementById('galleryNext').addEventListener('click', () => galleryStep(1));
+
+// Wire up cards
+document.querySelectorAll('.model-card').forEach(card => {
+  const img = card.querySelector('img');
+  if (!img) return;
+  const m = img.src.match(/moto-([a-z0-9]+)\.(jpg|png)/i);
+  if (!m) return;
+  const code = m[1].toLowerCase();
+  if (!MODELS[code]) return;
+  // Click anywhere on card except "Заказать" button opens modal
+  card.style.cursor = 'none';
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('.btn-model')) return;
+    openModal(code);
+  });
+  // Also: override the inner "Заказать" to open modal
+  const btn = card.querySelector('.btn-model');
+  if (btn) {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(code);
+    });
+  }
+});
 
 // HERO ENTRANCE
 document.querySelector('.hero-content').style.opacity = '0';
