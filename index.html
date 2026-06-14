@@ -63,7 +63,7 @@
     {
       "@type": "Product",
       "name": "Electron 300EV",
-      "image": "https://arcmotor.ru/images/moto-h400.jpg",
+      "image": "https://arcmotor.ru/images/moto-h400.webp",
       "description": "Премиальный электрокруизер. Ременная передача, 8 кВт, до 240 км на одном заряде.",
       "brand": { "@type": "Brand", "name": "ARC" },
       "offers": {
@@ -78,7 +78,7 @@
     {
       "@type": "Product",
       "name": "ARC NINJA",
-      "image": "https://arcmotor.ru/images/moto-rz.jpg",
+      "image": "https://arcmotor.ru/images/moto-rz.webp",
       "description": "Электроспортбайк в гоночной ливрее. До 160 км/ч, до 210 км пробега.",
       "brand": { "@type": "Brand", "name": "ARC" },
       "offers": {
@@ -92,7 +92,7 @@
     {
       "@type": "Product",
       "name": "ARC S 1000 RR",
-      "image": "https://arcmotor.ru/images/moto-my.jpg",
+      "image": "https://arcmotor.ru/images/moto-my.webp",
       "description": "Спортбайк в триколоре BMW. До 160 км/ч.",
       "brand": { "@type": "Brand", "name": "ARC" },
       "offers": {
@@ -106,7 +106,7 @@
     {
       "@type": "Product",
       "name": "ARC Kawasaki H2",
-      "image": "https://arcmotor.ru/images/moto-hy.jpg",
+      "image": "https://arcmotor.ru/images/moto-hy.webp",
       "description": "Спортбайк в стиле японских литровиков. До 160 км/ч.",
       "brand": { "@type": "Brand", "name": "ARC" },
       "offers": {
@@ -934,6 +934,65 @@
     transition: width 1.5s ease;
   }
 
+  /* DELIVERY */
+  .delivery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    margin-top: 64px;
+  }
+  .delivery-step {
+    background: var(--panel);
+    padding: 32px 28px;
+    position: relative;
+  }
+  .delivery-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--arc);
+    letter-spacing: 1px;
+    line-height: 1;
+    margin-bottom: 16px;
+    opacity: 0.9;
+  }
+  .delivery-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .delivery-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .delivery-notes {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .delivery-note {
+    padding: 24px;
+    background: var(--panel);
+    border-left: 2px solid var(--arc);
+  }
+  .delivery-note-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--arc);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .delivery-note-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
   /* FAQ */
   .faq-list {
     margin-top: 48px;
@@ -1444,6 +1503,14 @@
     }
     .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
 
+    /* DELIVERY mobile */
+    .delivery-grid { grid-template-columns: 1fr; gap: 1px; }
+    .delivery-step { padding: 24px 20px; }
+    .delivery-num { font-size: 44px; }
+    .delivery-title { font-size: 20px; }
+    .delivery-desc { font-size: 12px; }
+    .delivery-notes { grid-template-columns: 1fr; gap: 16px; margin-top: 40px; }
+
     /* FAQ */
     .faq-q { font-size: 14px; padding: 18px 0; }
     .faq-a { font-size: 13px; }
@@ -1564,10 +1631,10 @@
   <a href="#" class="nav-logo">AR<span>C</span></a>
   <ul class="nav-links">
     <li><a href="#models">Модели</a></li>
-    <li><a href="#tech">Технологии</a></li>
+    <li><a href="#delivery">Доставка</a></li>
     <li><a href="#about">О бренде</a></li>
-    <li><a href="#faq">Вопросы</a></li>
-    <li><a href="#cta">Контакты</a></li>
+    <li><a href="/blog/">Блог</a></li>
+    <li><a href="#faq">FAQ</a></li>
   </ul>
   <a href="#cta" class="nav-cta">Связаться</a>
 </nav>
@@ -1655,7 +1722,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-h400.jpg" alt="Electron 300EV" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img src="images/moto-h400.webp" alt="Electron 300EV" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ Electron 300EV ]</div>
       </div>
       <div class="model-info">
@@ -1688,7 +1755,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-dk.jpg" alt="ARC DK" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-dk.webp" alt="ARC DK" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC DK ]</div>
       </div>
       <div class="model-info">
@@ -1721,7 +1788,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-rz.jpg" alt="ARC NINJA" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-rz.webp" alt="ARC NINJA" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC NINJA ]</div>
       </div>
       <div class="model-info">
@@ -1754,7 +1821,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-r3.jpg" alt="ARC R3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-r3.webp" alt="ARC R3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC R3 ]</div>
       </div>
       <div class="model-info">
@@ -1787,7 +1854,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-v6.jpg" alt="ARC V6" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-v6.webp" alt="ARC V6" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC V6 ]</div>
       </div>
       <div class="model-info">
@@ -1820,7 +1887,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-jl.jpg" alt="ARC JL" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-jl.webp" alt="ARC JL" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC JL ]</div>
       </div>
       <div class="model-info">
@@ -1853,7 +1920,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-my.jpg" alt="ARC S 1000 RR" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-my.webp" alt="ARC S 1000 RR" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC S 1000 RR ]</div>
       </div>
       <div class="model-info">
@@ -1886,7 +1953,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-hy.jpg" alt="ARC Kawasaki H2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-hy.webp" alt="ARC Kawasaki H2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC Kawasaki H2 ]</div>
       </div>
       <div class="model-info">
@@ -1919,7 +1986,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-n19.jpg" alt="ARC N19" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-n19.webp" alt="ARC N19" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC N19 ]</div>
       </div>
       <div class="model-info">
@@ -1952,7 +2019,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-xf.jpg" alt="ARC XF" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-xf.webp" alt="ARC XF" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC XF ]</div>
       </div>
       <div class="model-info">
@@ -1985,7 +2052,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-dmg.jpg" alt="ARC DMG" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-dmg.webp" alt="ARC DMG" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC DMG ]</div>
       </div>
       <div class="model-info">
@@ -2018,7 +2085,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-dmg2.jpg" alt="ARC DMG2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-dmg2.webp" alt="ARC DMG2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC DMG2 ]</div>
       </div>
       <div class="model-info">
@@ -2051,7 +2118,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-t8.jpg" alt="ARC TMax8" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-t8.webp" alt="ARC TMax8" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC TMax8 ]</div>
       </div>
       <div class="model-info">
@@ -2084,7 +2151,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-t9.jpg" alt="ARC TMax9" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-t9.webp" alt="ARC TMax9" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC TMax9 ]</div>
       </div>
       <div class="model-info">
@@ -2117,7 +2184,7 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-t10.jpg" alt="ARC TMa10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <img loading="lazy" src="images/moto-t10.webp" alt="ARC TMa10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="model-img-placeholder" style="display:none">[ ARC TMa10 ]</div>
       </div>
       <div class="model-info">
@@ -2267,11 +2334,68 @@
     </div>
 
     <div class="about-visual reveal reveal-delay-2">
-      <img src="images/1.png" alt="ARC" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <img loading="lazy" src="images/1.png" alt="ARC" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
       <div class="about-visual-label" style="display:none">[ ARC ]</div>
     </div>
   </div>
   <div class="sticker-track bottom" id="track-bottom-about"></div>
+</section>
+
+<!-- DELIVERY -->
+<section id="delivery" class="track-section">
+  <div class="sticker-track top" id="track-top-delivery"></div>
+  <div class="sec-label reveal">// доставка и оплата</div>
+  <h2 class="reveal reveal-delay-1">КАК<br><span>МЫ РАБОТАЕМ</span></h2>
+  <div class="h-line reveal reveal-delay-2"></div>
+
+  <div class="delivery-grid">
+    <div class="delivery-step reveal">
+      <div class="delivery-num">01</div>
+      <div class="delivery-title">Заявка и консультация</div>
+      <div class="delivery-desc">Свяжитесь с нами в Telegram, MAX или по телефону. Помогаем выбрать модель, конфигурацию мотора и аккумулятора под ваши задачи. Согласовываем итоговую цену и сроки.</div>
+    </div>
+    <div class="delivery-step reveal reveal-delay-1">
+      <div class="delivery-num">02</div>
+      <div class="delivery-title">Договор и предоплата</div>
+      <div class="delivery-desc">Заключаем договор. Оплата по реквизитам ИП — переводом или наличными. Возможна рассрочка до 12 месяцев через банки-партнёры. Минимальный взнос — от 30%.</div>
+    </div>
+    <div class="delivery-step reveal reveal-delay-2">
+      <div class="delivery-num">03</div>
+      <div class="delivery-title">Заказ на заводе</div>
+      <div class="delivery-desc">После предоплаты размещаем заказ на заводе в Китае. Производство — 7–10 дней. Контроль качества на каждом этапе сборки. Фото готового мотоцикла отправляем перед отгрузкой.</div>
+    </div>
+    <div class="delivery-step reveal reveal-delay-3">
+      <div class="delivery-num">04</div>
+      <div class="delivery-title">Доставка в Россию</div>
+      <div class="delivery-desc">Морская перевозка из Китая, растаможка и доставка до Москвы — за наш счёт. Все логистические расходы и страховка груза уже включены в стоимость на сайте. Срок 25–35 дней.</div>
+    </div>
+    <div class="delivery-step reveal">
+      <div class="delivery-num">05</div>
+      <div class="delivery-title">Получение и проверка</div>
+      <div class="delivery-desc">Получаете мотоцикл в Москве. Доплата остатка по факту получения. Проверка в нашем присутствии: внешний вид, работа электроники, заряд, документы. Передаём ключи и инструкции.</div>
+    </div>
+    <div class="delivery-step reveal reveal-delay-1">
+      <div class="delivery-num">06</div>
+      <div class="delivery-title">Гарантия и поддержка</div>
+      <div class="delivery-desc">12 месяцев гарантии на электронику и батарею. Техническая поддержка в Telegram. Запчасти заказываем напрямую от производителя по себестоимости.</div>
+    </div>
+  </div>
+
+  <div class="delivery-notes reveal">
+    <div class="delivery-note">
+      <div class="delivery-note-title">Доставка по России</div>
+      <div class="delivery-note-text">До Москвы — включено в цену. В другие города РФ — транспортной компанией (ПЭК, Деловые Линии, СДЭК). Стоимость рассчитывается отдельно после оформления заказа.</div>
+    </div>
+    <div class="delivery-note">
+      <div class="delivery-note-title">Способы оплаты</div>
+      <div class="delivery-note-text">Перевод на расчётный счёт ИП, банковской картой через эквайринг, наличными при получении. Рассрочка до 12 мес. через банки-партнёры.</div>
+    </div>
+    <div class="delivery-note">
+      <div class="delivery-note-title">Документы</div>
+      <div class="delivery-note-text">При получении выдаём: договор купли-продажи, ПТС (категория М), товарную накладную, гарантийный талон, инструкцию по эксплуатации, ключи.</div>
+    </div>
+  </div>
+  <div class="sticker-track bottom" id="track-bottom-delivery"></div>
 </section>
 
 <!-- FAQ -->
@@ -2761,38 +2885,43 @@ function renderBaseSpecs() {
   c.innerHTML = html;
 }
 
-// Try to load additional images for a model (moto-{code}-2.jpg, -3.jpg, ...)
+// Try to load additional images for a model (moto-{code}-2.webp, -3.webp, ...)
 function probeImages(code, mainPath) {
   return new Promise(resolve => {
     const found = [mainPath];
     let i = 2;
+    const tryExt = (ext, onDone) => {
+      const path = `images/moto-${code}-${i}.${ext}`;
+      const img = new Image();
+      img.onload = () => onDone(path);
+      img.onerror = () => onDone(null);
+      img.src = path;
+    };
     function tryNext() {
-      // Try jpg, then png
-      const tryExt = (ext, onDone) => {
-        const path = `images/moto-${code}-${i}.${ext}`;
-        const img = new Image();
-        img.onload = () => onDone(path);
-        img.onerror = () => onDone(null);
-        img.src = path;
-      };
-      tryExt('jpg', (jpg) => {
-        if (jpg) {
-          found.push(jpg);
-          i++;
+      tryExt('webp', (webp) => {
+        if (webp) {
+          found.push(webp); i++;
           if (i > 12) return resolve(found);
           tryNext();
-        } else {
+          return;
+        }
+        tryExt('jpg', (jpg) => {
+          if (jpg) {
+            found.push(jpg); i++;
+            if (i > 12) return resolve(found);
+            tryNext();
+            return;
+          }
           tryExt('png', (png) => {
             if (png) {
-              found.push(png);
-              i++;
+              found.push(png); i++;
               if (i > 12) return resolve(found);
               tryNext();
             } else {
               resolve(found);
             }
           });
-        }
+        });
       });
     }
     tryNext();
@@ -2802,7 +2931,7 @@ function probeImages(code, mainPath) {
 function showImage(idx) {
   currentImageIdx = idx;
   const main = document.getElementById('galleryMain');
-  main.innerHTML = `<img src="${currentImages[idx]}" alt="">`;
+  main.innerHTML = `<img loading="lazy" src="${currentImages[idx]}" alt="">`;
   document.getElementById('galleryCounter').textContent = `${idx+1} / ${currentImages.length}`;
   // Update thumbs
   document.querySelectorAll('.gallery-thumb').forEach((t, i) => {
@@ -2820,7 +2949,7 @@ function renderGallery() {
   } else {
     thumbs.style.display = 'flex';
     thumbs.innerHTML = currentImages.map((src, i) =>
-      `<div class="gallery-thumb${i===0?' active':''}" data-i="${i}"><img src="${src}" alt=""></div>`
+      `<div class="gallery-thumb${i===0?' active':''}" data-i="${i}"><img loading="lazy" src="${src}" alt=""></div>`
     ).join('');
     thumbs.querySelectorAll('.gallery-thumb').forEach(t => {
       t.addEventListener('click', () => showImage(parseInt(t.dataset.i)));
@@ -2847,8 +2976,8 @@ async function openModal(code) {
 
   // Loading state
   const main = document.getElementById('galleryMain');
-  main.innerHTML = '<img src="images/moto-' + code + '.jpg" alt="">';
-  currentImages = ['images/moto-' + code + '.jpg'];
+  main.innerHTML = '<img loading="lazy" src="images/moto-' + code + '.webp" alt="">';
+  currentImages = ['images/moto-' + code + '.webp'];
   document.getElementById('galleryCounter').textContent = '1 / 1';
   document.getElementById('galleryThumbs').style.display = 'none';
 
@@ -2857,7 +2986,7 @@ async function openModal(code) {
   document.body.style.overflow = 'hidden';
 
   // Probe for more images
-  currentImages = await probeImages(code, 'images/moto-' + code + '.jpg');
+  currentImages = await probeImages(code, 'images/moto-' + code + '.webp');
   renderGallery();
 }
 
@@ -2889,7 +3018,7 @@ document.getElementById('galleryNext').addEventListener('click', () => gallerySt
 document.querySelectorAll('.model-card').forEach(card => {
   const img = card.querySelector('img');
   if (!img) return;
-  const m = img.src.match(/moto-([a-z0-9]+)\.(jpg|png)/i);
+  const m = img.src.match(/moto-([a-z0-9]+)\.(webp|jpg|png)/i);
   if (!m) return;
   const code = m[1].toLowerCase();
   if (!MODELS[code]) return;
