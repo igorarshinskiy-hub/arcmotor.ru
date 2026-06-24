@@ -935,6 +935,84 @@
     transition: width 1.5s ease;
   }
 
+  /* WHY US */
+  #why {
+    padding: 120px 60px;
+  }
+  .why-header {
+    margin-bottom: 64px;
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 2px;
+  }
+  .why-card {
+    background: var(--panel);
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .why-card-icon {
+    font-size: 28px;
+    line-height: 1;
+    color: var(--arc);
+  }
+  .why-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--white);
+  }
+  .why-card-text {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.85;
+  }
+  .why-guarantee {
+    background: var(--panel);
+    border: 1px solid var(--arc);
+    padding: 40px 48px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+  .why-guarantee::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 0% 50%, rgba(0,229,255,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .why-guarantee-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 54px;
+    color: var(--arc);
+    line-height: 1;
+    flex-shrink: 0;
+    letter-spacing: 1px;
+  }
+  .why-guarantee-body {}
+  .why-guarantee-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--white);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .why-guarantee-text {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.85;
+    max-width: 600px;
+  }
+
   /* DELIVERY */
   .delivery-grid {
     display: grid;
@@ -1490,6 +1568,12 @@
     .spec-item-num { font-size: 30px; }
     .spec-item-num em { font-size: 16px; }
 
+    /* WHY US */
+    #why { padding: 80px 20px; }
+    .why-grid { grid-template-columns: 1fr; }
+    .why-guarantee { flex-direction: column; gap: 16px; padding: 28px 24px; }
+    .why-guarantee-badge { font-size: 40px; }
+
     /* CTA */
     #cta { padding: 80px 20px; }
     .cta-big { font-size: 56px; line-height: 1; letter-spacing: 2px; }
@@ -1633,6 +1717,7 @@
   <ul class="nav-links">
     <li><a href="#models">Модели</a></li>
     <li><a href="#delivery">Доставка</a></li>
+    <li><a href="#why">Почему мы</a></li>
     <li><a href="#about">О бренде</a></li>
     <li><a href="/blog/">Блог</a></li>
     <li><a href="#faq">FAQ</a></li>
@@ -1714,7 +1799,7 @@
   <div class="section-header">
     <div>
       <div class="sec-label reveal">// линейка моделей</div>
-      <h2 class="reveal reveal-delay-1">ВЫБЕРИ<br><span>СВОЮ ДУГУ</span></h2>
+      <h2 class="reveal reveal-delay-1">ВЫБЕРИ<br><span>СВОЮ СВОБОДУ</span></h2>
     </div>
     <a href="#" class="btn-ghost reveal" style="margin-bottom: 12px">Все модели →</a>
   </div>
@@ -2639,6 +2724,47 @@
     </div>
   </div>
   <div class="sticker-track bottom" id="track-bottom-about"></div>
+</section>
+
+<!-- WHY US -->
+<section id="why" class="track-section">
+  <div class="sticker-track top" id="track-top-why"></div>
+  <div class="why-header">
+    <div class="sec-label reveal">// почему мы</div>
+    <h2 class="reveal reveal-delay-1">ЧЕСТНО.<br><span>БЕЗ ЛИШНЕГО.</span></h2>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="why-card-icon">◈</div>
+      <div class="why-card-title">Цена без переплат</div>
+      <div class="why-card-text">Мы молодая компания без шоурумов и раздутого штата. Никаких лишних расходов — только то, что реально нужно. Поэтому на ту же технику, что у конкурентов, наши цены ниже и приятнее.</div>
+    </div>
+    <div class="why-card reveal reveal-delay-1">
+      <div class="why-card-icon">◉</div>
+      <div class="why-card-title">Качество, не количество</div>
+      <div class="why-card-text">Мы не гонимся за объёмом продаж. Нам важно, чтобы каждый клиент остался доволен — поэтому подходим к каждому заказу внимательно и без спешки.</div>
+    </div>
+    <div class="why-card reveal reveal-delay-2">
+      <div class="why-card-icon">◎</div>
+      <div class="why-card-title">Без навязывания</div>
+      <div class="why-card-text">Никаких ненужных допуслуг. Если понадобится помощь — заказ запчастей, обслуживание, просто совет — мы всегда на связи и готовы помочь.</div>
+    </div>
+    <div class="why-card reveal reveal-delay-3">
+      <div class="why-card-icon">◻</div>
+      <div class="why-card-title">Официально по договору</div>
+      <div class="why-card-text">Работаем через официальную компанию и оформляем договор на каждую сделку. Всё прозрачно, всё по закону.</div>
+    </div>
+  </div>
+
+  <div class="why-guarantee reveal">
+    <div class="why-guarantee-badge">%</div>
+    <div class="why-guarantee-body">
+      <div class="why-guarantee-title">Гарантия низкой цены</div>
+      <div class="why-guarantee-text">Нашли дешевле? Просто напишите нам — сделаем приятную скидку. Качество при этом остаётся на том же высоком уровне. Мы не боимся сравнения.</div>
+    </div>
+  </div>
+  <div class="sticker-track bottom" id="track-bottom-why"></div>
 </section>
 
 <!-- DELIVERY -->
