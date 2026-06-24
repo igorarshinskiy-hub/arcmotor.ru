@@ -823,6 +823,45 @@
     z-index: 1;
   }
 
+  .cta-selected-model {
+    border: 1px solid var(--arc);
+    background: rgba(0,229,255,0.05);
+    padding: 20px 32px;
+    margin: 0 auto 36px;
+    max-width: 480px;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-selected-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--arc);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    opacity: 0.7;
+  }
+  .cta-selected-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .cta-selected-config {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .cta-selected-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--arc);
+    letter-spacing: 1px;
+  }
+
   /* FOOTER */
   footer {
     border-top: 1px solid var(--border);
@@ -2881,10 +2920,16 @@
 <section id="cta">
   <div class="sec-label" style="margin-bottom: 24px; position: relative; z-index:1">// связаться</div>
   <div class="cta-big">ОФОРМИ<br><span>ЗАКАЗ</span></div>
-  <p class="cta-sub">Все мотоциклы под заказ напрямую с завода. Срок поставки 30–45 дней. Свяжитесь любым удобным способом.</p>
+  <div id="ctaSelectedModel" class="cta-selected-model" style="display:none">
+    <div class="cta-selected-label">Выбранная модель</div>
+    <div class="cta-selected-name" id="ctaModelName"></div>
+    <div class="cta-selected-config" id="ctaModelConfig"></div>
+    <div class="cta-selected-price" id="ctaModelPrice"></div>
+  </div>
+  <p class="cta-sub" id="ctaSub">Все мотоциклы под заказ напрямую с завода. Срок поставки 30–45 дней. Свяжитесь любым удобным способом.</p>
   <div class="cta-btns">
     <a href="tel:+79776158699" class="btn-primary">+7 977 615-86-99</a>
-    <a href="https://t.me/IgorArshinskii" target="_blank" rel="noopener" class="btn-ghost">Telegram</a>
+    <a href="https://t.me/IgorArshinskii" target="_blank" rel="noopener" class="btn-ghost" id="ctaTgLink">Telegram</a>
     <a href="https://max.ru/u/f9LHodD0cOLE74FPIB4J8mlIjd2ETRe4bGk43ocyGZibZrccTiQG0fwXf60" target="_blank" rel="noopener" class="btn-ghost">MAX</a>
   </div>
 </section>
@@ -3520,6 +3565,27 @@ document.getElementById('modalClose').addEventListener('click', closeModal);
 document.getElementById('modalBackdrop').addEventListener('click', closeModal);
 document.getElementById('orderBtn').addEventListener('click', function(e) {
   e.preventDefault();
+
+  if (currentModel) {
+    const motor = currentModel.motors[currentMotorType][currentMotorIdx];
+    const battery = currentModel.batteries[currentBatteryIdx];
+    const totalRub = priceOf(motor) + priceOf(battery);
+
+    const motorLabel = motor.name || currentMotorType;
+    const batteryLabel = battery.code || '';
+    const configText = [motorLabel, batteryLabel].filter(Boolean).join(' · ');
+    const priceText = fmtPrice(totalRub) + ' ₽';
+    const msgText = `Хочу заказать: ${currentModel.name}\nКомплектация: ${configText}\nЦена: ${priceText}`;
+
+    document.getElementById('ctaModelName').textContent = currentModel.name;
+    document.getElementById('ctaModelConfig').textContent = configText;
+    document.getElementById('ctaModelPrice').textContent = priceText;
+    document.getElementById('ctaSelectedModel').style.display = 'block';
+
+    document.getElementById('ctaTgLink').href =
+      'https://t.me/IgorArshinskii?text=' + encodeURIComponent(msgText);
+  }
+
   closeModal();
   setTimeout(() => document.getElementById('cta').scrollIntoView({ behavior: 'smooth' }), 300);
 });
