@@ -1743,6 +1743,203 @@
     .modal-info { padding: 18px 14px 40px; }
     .modal-name { font-size: 26px; }
   }
+
+  /* CART */
+  .nav-cart {
+    position: relative;
+    background: transparent;
+    border: none;
+    cursor: none;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    transition: color 0.2s;
+    margin-right: 8px;
+  }
+  .nav-cart:hover { color: var(--arc); }
+  .nav-cart svg { width: 22px; height: 22px; display: block; }
+  .cart-badge {
+    position: absolute;
+    top: 2px; right: 2px;
+    background: var(--arc);
+    color: var(--black);
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    padding: 0 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .cart-badge.visible { opacity: 1; transform: scale(1); }
+
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 900;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+  #cartSidebar {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100%;
+    width: 400px;
+    background: #0d0d0d;
+    border-left: 1px solid var(--border);
+    z-index: 901;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  #cartSidebar.open { transform: translateX(0); }
+
+  .cart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .cart-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: var(--white);
+  }
+  .cart-close {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--white);
+    width: 36px; height: 36px;
+    cursor: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .cart-close:hover { border-color: var(--arc); color: var(--arc); }
+
+  .cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .cart-empty {
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+    margin-top: 60px;
+    font-family: var(--mono);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .cart-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 6px 12px;
+    align-items: start;
+  }
+  .cart-item-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 19px;
+    letter-spacing: 1px;
+    color: var(--white);
+    grid-column: 1;
+  }
+  .cart-item-remove {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 28px; height: 28px;
+    cursor: none;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, color 0.2s;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .cart-item-remove:hover { border-color: #ff4444; color: #ff4444; }
+  .cart-item-config {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    grid-column: 1 / -1;
+  }
+  .cart-item-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--arc);
+    letter-spacing: 1px;
+    grid-column: 1 / -1;
+  }
+
+  .cart-footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 28px;
+    flex-shrink: 0;
+  }
+  .cart-total-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .cart-total-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .cart-total-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--white);
+    letter-spacing: 1px;
+  }
+  .cart-total-price span { color: var(--arc); font-size: 20px; }
+  .btn-cart-order {
+    width: 100%;
+    background: var(--arc);
+    color: var(--black);
+    border: none;
+    padding: 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 3px;
+    cursor: none;
+    transition: opacity 0.2s;
+    text-transform: uppercase;
+  }
+  .btn-cart-order:hover { opacity: 0.85; }
+
+  @media (max-width: 768px) {
+    #cartSidebar { width: 100%; }
+  }
 </style>
 </head>
 <body>
@@ -1761,8 +1958,37 @@
     <li><a href="/blog/">Блог</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
-  <a href="#cta" class="nav-cta">Связаться</a>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="nav-cart" id="cartBtn" aria-label="Корзина">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="cart-badge" id="cartBadge"></span>
+    </button>
+    <a href="#cta" class="nav-cta">Связаться</a>
+  </div>
 </nav>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay"></div>
+
+<!-- CART SIDEBAR -->
+<div id="cartSidebar">
+  <div class="cart-header">
+    <div class="cart-title">КОРЗИНА</div>
+    <button class="cart-close" id="cartClose">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">// корзина пуста</div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total-row">
+      <div class="cart-total-label">Итого</div>
+      <div class="cart-total-price" id="cartTotalPrice">0 <span>₽</span></div>
+    </div>
+    <button class="btn-cart-order" id="cartOrderBtn">Оформить заказ</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -2981,7 +3207,7 @@
           <div class="total-label">Итого</div>
           <div class="total-price" id="totalPrice">0 <span>₽</span></div>
         </div>
-        <a href="#cta" class="btn-order" id="orderBtn">Заказать</a>
+        <button class="btn-order" id="orderBtn">В корзину</button>
       </div>
     </div>
   </div>
@@ -3563,32 +3789,129 @@ function closeModal() {
 
 document.getElementById('modalClose').addEventListener('click', closeModal);
 document.getElementById('modalBackdrop').addEventListener('click', closeModal);
-document.getElementById('orderBtn').addEventListener('click', function(e) {
-  e.preventDefault();
+// CART
+const CART_KEY = 'arc_cart';
+function cartLoad() { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } }
+function cartSave(items) { localStorage.setItem(CART_KEY, JSON.stringify(items)); }
 
-  if (currentModel) {
-    const motor = currentModel.motors[currentMotorType][currentMotorIdx];
-    const battery = currentModel.batteries[currentBatteryIdx];
-    const totalRub = priceOf(motor) + priceOf(battery);
+function cartRender() {
+  const items = cartLoad();
+  const container = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  const badge = document.getElementById('cartBadge');
 
-    const motorLabel = motor.name || currentMotorType;
-    const batteryLabel = battery.code || '';
-    const configText = [motorLabel, batteryLabel].filter(Boolean).join(' · ');
-    const priceText = fmtPrice(totalRub) + ' ₽';
-    const msgText = `Хочу заказать: ${currentModel.name}\nКомплектация: ${configText}\nЦена: ${priceText}`;
-
-    document.getElementById('ctaModelName').textContent = currentModel.name;
-    document.getElementById('ctaModelConfig').textContent = configText;
-    document.getElementById('ctaModelPrice').textContent = priceText;
-    document.getElementById('ctaSelectedModel').style.display = 'block';
-
-    document.getElementById('ctaTgLink').href =
-      'https://t.me/IgorArshinskii?text=' + encodeURIComponent(msgText);
+  if (items.length > 0) {
+    badge.textContent = items.length;
+    badge.classList.add('visible');
+  } else {
+    badge.classList.remove('visible');
   }
 
-  closeModal();
-  setTimeout(() => document.getElementById('cta').scrollIntoView({ behavior: 'smooth' }), 300);
+  if (items.length === 0) {
+    container.innerHTML = '<div class="cart-empty">// корзина пуста</div>';
+    footer.style.display = 'none';
+    return;
+  }
+
+  footer.style.display = 'block';
+  let total = 0;
+  let html = '';
+  items.forEach((item, idx) => {
+    total += item.price;
+    html += `<div class="cart-item">
+      <div class="cart-item-name">${item.modelName}</div>
+      <button class="cart-item-remove" onclick="cartRemove(${idx})">✕</button>
+      <div class="cart-item-config">${item.motorName}${item.batteryCode ? ' · ' + item.batteryCode : ''}${item.range ? '<br>' + item.range + ' запаса хода' : ''}</div>
+      <div class="cart-item-price">${fmtPrice(item.price)} ₽</div>
+    </div>`;
+  });
+  container.innerHTML = html;
+  document.getElementById('cartTotalPrice').innerHTML = fmtPrice(total) + ' <span>₽</span>';
+}
+
+function cartRemove(idx) {
+  const items = cartLoad();
+  items.splice(idx, 1);
+  cartSave(items);
+  cartRender();
+}
+
+function cartOpen() {
+  document.getElementById('cartSidebar').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function cartClose() {
+  document.getElementById('cartSidebar').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('cartBtn').addEventListener('click', cartOpen);
+document.getElementById('cartClose').addEventListener('click', cartClose);
+document.getElementById('cartOverlay').addEventListener('click', cartClose);
+
+document.getElementById('cartOrderBtn').addEventListener('click', function() {
+  const items = cartLoad();
+  if (!items.length) return;
+  cartClose();
+
+  const lines = items.map(i => `• ${i.modelName} (${i.motorName}${i.batteryCode ? ', ' + i.batteryCode : ''})`).join('\n');
+  const total = items.reduce((s, i) => s + i.price, 0);
+  const msgText = `Хочу заказать:\n${lines}\nИтого: ${fmtPrice(total)} ₽`;
+
+  const nameEl = document.getElementById('ctaModelName');
+  const configEl = document.getElementById('ctaModelConfig');
+  const priceEl = document.getElementById('ctaModelPrice');
+  if (items.length === 1) {
+    nameEl.textContent = items[0].modelName;
+    configEl.textContent = [items[0].motorName, items[0].batteryCode].filter(Boolean).join(' · ');
+  } else {
+    nameEl.textContent = `${items.length} модели в заказе`;
+    configEl.textContent = items.map(i => i.modelName).join(', ');
+  }
+  priceEl.textContent = fmtPrice(total) + ' ₽';
+  document.getElementById('ctaSelectedModel').style.display = 'block';
+  document.getElementById('ctaTgLink').href = 'https://t.me/IgorArshinskii?text=' + encodeURIComponent(msgText);
+
+  setTimeout(() => document.getElementById('cta').scrollIntoView({ behavior: 'smooth' }), 100);
 });
+
+document.getElementById('orderBtn').addEventListener('click', function() {
+  if (!currentModel) return;
+
+  const motor = currentModel.motors[currentMotorType][currentMotorIdx];
+  const battery = currentModel.batteries[currentBatteryIdx];
+  const totalRub = priceOf(motor) + priceOf(battery);
+
+  const items = cartLoad();
+  items.push({
+    id: Date.now(),
+    modelName: currentModel.name,
+    motorName: motor.name || currentMotorType,
+    batteryCode: battery.code || '',
+    range: battery.range || '',
+    price: totalRub
+  });
+  cartSave(items);
+  cartRender();
+
+  const btn = document.getElementById('orderBtn');
+  const orig = btn.textContent;
+  btn.textContent = 'Добавлено ✓';
+  btn.style.background = 'var(--arc)';
+  btn.style.color = 'var(--black)';
+  setTimeout(() => {
+    btn.textContent = orig;
+    btn.style.background = '';
+    btn.style.color = '';
+    closeModal();
+    cartOpen();
+  }, 900);
+});
+
+cartRender();
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
   if (!document.getElementById('modal').classList.contains('open')) return;
