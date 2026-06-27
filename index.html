@@ -63,7 +63,7 @@
   "@graph": [
     {
       "@type": "Product",
-      "name": "Electron 300EV",
+      "name": "ARC Harley-Davidson Sportster S",
       "image": "https://arcmotor.ru/images/moto-h400.webp",
       "description": "Премиальный электрокруизер. Ременная передача, 8 кВт, до 240 км на одном заряде.",
       "brand": { "@type": "Brand", "name": "ARC" },
@@ -92,7 +92,7 @@
     },
     {
       "@type": "Product",
-      "name": "ARC S 1000 RR",
+      "name": "ARC BMW S 1000 RR",
       "image": "https://arcmotor.ru/images/moto-my.webp",
       "description": "Спортбайк в триколоре BMW. До 160 км/ч.",
       "brand": { "@type": "Brand", "name": "ARC" },
@@ -157,7 +157,7 @@
       "name": "Сколько проезжает электромотоцикл на одном заряде?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Запас хода зависит от модели и батареи. Минимум — 70 км (батарея 40 А·ч), максимум — 240 км (батарея 150 А·ч на модели Electron 300EV)."
+        "text": "Запас хода зависит от модели и батареи. Минимум — 70 км (батарея 40 А·ч), максимум — 240 км (батарея 150 А·ч на модели ARC Harley-Davidson Sportster S)."
       }
     },
     {
@@ -1260,10 +1260,19 @@
     padding: 32px;
     min-height: 380px;
   }
-  .gallery-main img {
+  .gallery-main img, .gallery-main video {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+  }
+  .gallery-thumb-video {
+    background: #1a1a1a;
+    position: relative;
+  }
+  .gallery-thumb-video svg {
+    width: 28px;
+    height: 28px;
+    opacity: 0.85;
   }
   .gallery-nav {
     position: absolute;
@@ -2073,12 +2082,12 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img src="images/moto-h400.webp" alt="Electron 300EV" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-        <div class="model-img-placeholder" style="display:none">[ Electron 300EV ]</div>
+        <img src="images/moto-h400.webp" alt="ARC Harley-Davidson Sportster S" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="model-img-placeholder" style="display:none">[ ARC Harley-Davidson Sportster S ]</div>
       </div>
       <div class="model-info">
         <div class="model-tag">Круизер · ФЛАГМАН</div>
-        <div class="model-name">Electron 300EV</div>
+        <div class="model-name">ARC Harley-Davidson Sportster S</div>
         <p class="model-desc">Премиальный круизер. Ременная передача (опц. мотор-колесо). До 240 км пробега.</p>
         <div class="model-specs">
           <div class="model-spec">
@@ -2238,12 +2247,12 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img loading="lazy" src="images/moto-jl.webp" alt="ARC JL" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-        <div class="model-img-placeholder" style="display:none">[ ARC JL ]</div>
+        <img loading="lazy" src="images/moto-jl.webp" alt="ARC Ducati Panigale" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="model-img-placeholder" style="display:none">[ ARC Ducati Panigale ]</div>
       </div>
       <div class="model-info">
         <div class="model-tag">Спортбайк</div>
-        <div class="model-name">ARC JL</div>
+        <div class="model-name">ARC Ducati Panigale</div>
         <p class="model-desc">Яркий оранжевый окрас. Премиальная отделка, доступен в 5 цветах.</p>
         <div class="model-specs">
           <div class="model-spec">
@@ -2271,12 +2280,12 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img loading="lazy" src="images/moto-my.webp" alt="ARC S 1000 RR" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-        <div class="model-img-placeholder" style="display:none">[ ARC S 1000 RR ]</div>
+        <img loading="lazy" src="images/moto-my.webp" alt="ARC BMW S 1000 RR" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="model-img-placeholder" style="display:none">[ ARC BMW S 1000 RR ]</div>
       </div>
       <div class="model-info">
         <div class="model-tag">Спортбайк</div>
-        <div class="model-name">ARC S 1000 RR</div>
+        <div class="model-name">ARC BMW S 1000 RR</div>
         <p class="model-desc">Триколор бело-сине-красный в стиле BMW S1000RR. Спортивный обтекатель.</p>
         <div class="model-specs">
           <div class="model-spec">
@@ -2436,12 +2445,12 @@
 
     <div class="model-card reveal">
       <div class="model-img">
-        <img loading="lazy" src="images/moto-dmg2.webp" alt="ARC DMG2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-        <div class="model-img-placeholder" style="display:none">[ ARC DMG2 ]</div>
+        <img loading="lazy" src="images/moto-dmg2.webp" alt="ARC Ducati DIAVEL" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="model-img-placeholder" style="display:none">[ ARC Ducati DIAVEL ]</div>
       </div>
       <div class="model-info">
         <div class="model-tag">Нейкед-флагман</div>
-        <div class="model-name">ARC DMG2</div>
+        <div class="model-name">ARC Ducati DIAVEL</div>
         <p class="model-desc">Топовый нейкед с массивной рамой. Доступен в 4 цветах.</p>
         <div class="model-specs">
           <div class="model-spec">
@@ -3111,7 +3120,7 @@
     </div>
     <div class="faq-item reveal">
       <div class="faq-q">Сколько проезжает электромотоцикл на одном заряде?</div>
-      <div class="faq-a">Запас хода зависит от модели и установленной батареи. Минимум — 70 км (батарея 72V 40A·ч), максимум — 240 км (батарея 72V 150A·ч на модели Electron 300EV). У большинства спортбайков и нейкедов в каталоге доступны батареи 80–120 А·ч с пробегом 140–210 км.</div>
+      <div class="faq-a">Запас хода зависит от модели и установленной батареи. Минимум — 70 км (батарея 72V 40A·ч), максимум — 240 км (батарея 72V 150A·ч на модели ARC Harley-Davidson Sportster S). У большинства спортбайков и нейкедов в каталоге доступны батареи 80–120 А·ч с пробегом 140–210 км.</div>
     </div>
     <div class="faq-item reveal">
       <div class="faq-q">От какой розетки заряжается электромотоцикл?</div>
@@ -3460,7 +3469,7 @@ const MODELS = {
     defaultMotor: ['mid', 0], defaultBattery: 0,
   },
   h400: {
-    name: 'Electron 300EV', tag: 'Круизер · Флагман',
+    name: 'ARC Harley-Davidson Sportster S', tag: 'Круизер · Флагман',
     desc: 'Премиальный круизер с ременной передачей. Опционально — мотор-колесо (по запросу). Двойные дисковые тормоза, гидравлические амортизаторы, до 240 км пробега.',
     base: { 'Трансмиссия': 'Ременная передача (опц. мотор-колесо)', 'Двигатель': '8000W (8 кВт)', 'Макс. скорость': '115–120 км/ч', 'Тормоза': 'Дисковые F + R', 'Передняя подвеска': 'Гидравлическая', 'Задняя подвеска': 'Гидро + пружины', 'Зарядка': '6–8 часов', 'Приборы': 'LCD' },
     motors: { belt: [ { name: 'Мотор 8000W ременной', speed: 'входит в комплектацию', priceRub: 0 } ] },
@@ -3504,7 +3513,7 @@ const MODELS = {
     defaultMotor: ['chain', 2], defaultBattery: 3,
   },
   jl: {
-    name: 'ARC JL', tag: 'Спортбайк',
+    name: 'ARC Ducati Panigale', tag: 'Спортбайк',
     desc: 'Яркий спортбайк, доступен в 5 цветах: оранжевый, жёлтый, синий, красный, белый.',
     base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
     motors: stdMotors([5600,5900,6500,8200,16800], [9000,9500,11400,15500]),
@@ -3512,7 +3521,7 @@ const MODELS = {
     defaultMotor: ['chain', 2], defaultBattery: 3,
   },
   my: {
-    name: 'ARC S 1000 RR', tag: 'Спортбайк',
+    name: 'ARC BMW S 1000 RR', tag: 'Спортбайк',
     desc: 'Триколор бело-сине-красный в стиле BMW S1000RR. Спортивный обтекатель, низкая посадка.',
     base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
     motors: stdMotors([5600,5900,6500,8200,16800], [9000,9500,11400,15500]),
@@ -3552,7 +3561,7 @@ const MODELS = {
     defaultMotor: ['chain', 2], defaultBattery: 3,
   },
   dmg2: {
-    name: 'ARC DMG2', tag: 'Нейкед-флагман',
+    name: 'ARC Ducati DIAVEL', tag: 'Нейкед-флагман',
     desc: 'Топовый нейкед с массивной рамой и золотистыми вилками. Доступен в красном, тёмно-синем, зелёном и сером.',
     base: { 'Подъём': '35% (1 чел, 70 кг)', 'Зарядка': '6–8 часов', 'Ресурс батареи': '500 циклов', 'Приборы': 'LCD', 'Размер шин': '110/70-17 / 140/70-17', 'Вес (без батареи)': '95 кг', 'Макс. нагрузка': '300 кг', 'Колёсная база': '1380 мм' },
     motors: stdMotors([9000,9300,9900,11600,19000], [12000,14000,15500,19000]),
@@ -3690,45 +3699,53 @@ function renderBaseSpecs() {
   c.innerHTML = html;
 }
 
-// Try to load additional images for a model. Checks indices 2-12 in parallel,
-// supports gaps in numbering (e.g. -2, -4, -5 without -3).
-function probeImages(code, mainPath) {
-  return new Promise(resolve => {
-    const checkOne = (path) => new Promise(r => {
-      const img = new Image();
-      img.onload = () => r(path);
-      img.onerror = () => r(null);
-      img.src = path;
-    });
-    const probes = [];
-    for (let i = 2; i <= 12; i++) {
-      // Try webp first, then jpg, then png for each index
-      probes.push((async () => {
-        for (const ext of ['webp', 'jpg', 'jpeg', 'png']) {
-          const path = `images/moto-${code}-${i}.${ext}`;
-          const found = await checkOne(path);
-          if (found) return { idx: i, path };
-        }
-        return null;
-      })());
-    }
-    Promise.all(probes).then(results => {
-      const ordered = results.filter(Boolean).sort((a,b) => a.idx - b.idx).map(r => r.path);
-      resolve([mainPath, ...ordered]);
-    });
+// Probe images + videos for a model. Supports unlimited count and gaps (3 consecutive misses = stop).
+async function probeMedia(code, mainPath) {
+  const checkImg = (path) => new Promise(r => {
+    const img = new Image();
+    img.onload = () => r(path);
+    img.onerror = () => r(null);
+    img.src = path;
   });
+  const checkFile = (path) => fetch(path, { method: 'HEAD' })
+    .then(r => r.ok ? path : null).catch(() => null);
+
+  const items = [mainPath];
+
+  // Check for a main (non-numbered) video alongside the main image
+  const mainVideo = await checkFile(`images/moto-${code}.mp4`);
+  if (mainVideo) items.push(mainVideo);
+
+  // Sequential probing with gap tolerance (3 consecutive misses = stop)
+  let misses = 0;
+  for (let i = 2; misses < 3; i++) {
+    const checks = await Promise.all([
+      ...['webp', 'jpg', 'jpeg', 'png'].map(ext => checkImg(`images/moto-${code}-${i}.${ext}`)),
+      checkFile(`images/moto-${code}-${i}.mp4`)
+    ]);
+    const found = checks.find(Boolean);
+    if (found) { items.push(found); misses = 0; }
+    else misses++;
+  }
+
+  return items;
 }
 
 function showImage(idx) {
   currentImageIdx = idx;
   const main = document.getElementById('galleryMain');
-  main.innerHTML = `<img loading="lazy" src="${currentImages[idx]}" alt="">`;
+  const oldVideo = main.querySelector('video');
+  if (oldVideo) oldVideo.pause();
+  const src = currentImages[idx];
+  if (src.endsWith('.mp4')) {
+    main.innerHTML = `<video src="${src}" controls muted playsinline preload="metadata"></video>`;
+  } else {
+    main.innerHTML = `<img loading="lazy" src="${src}" alt="">`;
+  }
   document.getElementById('galleryCounter').textContent = `${idx+1} / ${currentImages.length}`;
-  // Update thumbs
   document.querySelectorAll('.gallery-thumb').forEach((t, i) => {
     t.classList.toggle('active', i === idx);
   });
-  // Show/hide nav
   document.getElementById('galleryPrev').style.display = currentImages.length > 1 ? 'flex' : 'none';
   document.getElementById('galleryNext').style.display = currentImages.length > 1 ? 'flex' : 'none';
 }
@@ -3739,9 +3756,12 @@ function renderGallery() {
     thumbs.style.display = 'none';
   } else {
     thumbs.style.display = 'flex';
-    thumbs.innerHTML = currentImages.map((src, i) =>
-      `<div class="gallery-thumb${i===0?' active':''}" data-i="${i}"><img loading="lazy" src="${src}" alt=""></div>`
-    ).join('');
+    thumbs.innerHTML = currentImages.map((src, i) => {
+      if (src.endsWith('.mp4')) {
+        return `<div class="gallery-thumb gallery-thumb-video${i===0?' active':''}" data-i="${i}"><svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>`;
+      }
+      return `<div class="gallery-thumb${i===0?' active':''}" data-i="${i}"><img loading="lazy" src="${src}" alt=""></div>`;
+    }).join('');
     thumbs.querySelectorAll('.gallery-thumb').forEach(t => {
       t.addEventListener('click', () => showImage(parseInt(t.dataset.i)));
     });
@@ -3776,12 +3796,14 @@ async function openModal(code) {
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow = 'hidden';
 
-  // Probe for more images
-  currentImages = await probeImages(code, 'images/moto-' + code + '.webp');
+  // Probe for more images and videos
+  currentImages = await probeMedia(code, 'images/moto-' + code + '.webp');
   renderGallery();
 }
 
 function closeModal() {
+  const video = document.querySelector('#galleryMain video');
+  if (video) video.pause();
   document.getElementById('modalBackdrop').classList.remove('open');
   document.getElementById('modal').classList.remove('open');
   document.body.style.overflow = '';
